@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      terraform: 0.14 # Adjust the version as necessary
+    commands:
+      - echo "Installing terraform"
+      - cd terraform-dir # Change to the directory containing your Terraform code
+
+  pre_build:
+    commands:
+      - echo "Initializing Terraform"
+      - terraform init
+
+  build:
+    commands:
+      - echo "Planning Terraform deployment"
+      - terraform plan
+
+  post_build:
+    commands:
+      - echo "Applying Terraform deployment"
+      - terraform apply -auto-approve
+
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
